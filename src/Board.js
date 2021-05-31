@@ -61,8 +61,7 @@
       );
     },
 
-
-/*
+    /*
          _             _     _
      ___| |_ __ _ _ __| |_  | |__   ___ _ __ ___ _
     / __| __/ _` | '__| __| | '_ \ / _ \ '__/ _ (_)
@@ -118,12 +117,41 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
-      return false; // fixme
+
+      //Create column variable
+      // var col = [];
+
+      //create counter
+      var ifFound = 0;
+
+      var board = this.rows();
+      //Loop through the length of the matrix (columns)
+      for (var i = 0; i < board.length; i++) {
+      //While looping through each row, adding column index to each column array
+        if (board[i][colIndex]) {
+          ifFound++;
+        }
+
+      }
+
+      return ifFound > 1; // fixme
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
-      return false; // fixme
+
+      //create board variable
+      var board = this.rows();
+      //Loop through the first array
+      for (var i = 0; i < board.length; i++) {
+
+        //while on each index of array, run function and check column
+        //If there is any conflict in a column
+        if (this.hasColConflictAt(board[0][i])) {
+          return true;
+        }
+      }
+      return false;
     },
 
 
