@@ -79,12 +79,36 @@
     //
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
-      return false; // fixme
+      //create a variable to store the array on the board.
+      var rowArray = this.get(rowIndex);
+
+      //counter, > 1 is true, < 1 false.
+      var ifFound = 0;
+      //loop through the specific rowIndex
+      for (var i = 0; i < rowArray.length; i++) {
+        //ifFound accumulates everytime it finds a piece
+        if (rowArray[i] === 1) {
+          ifFound++;
+        }
+      }
+      return ifFound > 1;
+      //returning true or false depending on how many pieces are in the row
     },
+
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
-      return false; // fixme
+      //board variable
+      var board = this.rows();
+      //search through the board and use previous helper function to check for conflicts
+      for ( var i = 0; i < board.length; i++) {
+        if (this.hasRowConflictAt(i)) {
+          return true;
+          //return true on the first conflict it sees
+        }
+      }
+      //otherwise no row conflicts, return false
+      return false;
     },
 
 
@@ -146,3 +170,7 @@
   };
 
 }());
+/*
+var board2 = new Board({n: 5});
+console.log(board2);
+console.log(JSON.stringify(board2));*/
