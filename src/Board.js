@@ -162,52 +162,40 @@
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
 
-      var j = majorDiagonalColumnIndexAtFirstRow;
-      //Make diagonal array variable
-      var diagonal = [];
+      var size = this.get('n'); // 4
+      var ifFound = 0; //counter to check piece conflict
+      var rowIndex = 0;
 
-      //create counter
-      var ifFound = 0;
+      console.log(1 - size);
+      var colIndex = majorDiagonalColumnIndexAtFirstRow;
+      for (;rowIndex < size && colIndex < size; rowIndex++, colIndex++) {
 
-      //create board variable
-      var board = this.rows();
 
-      //loop through each row of board variable
-      for (var i = 0; j < board.length; i++ ) {
-        diagonal.push(board[i][j]);
-        j++;
-      }
-
-      for (var i = 0; i < diagonal.length; i++) {
-        if (diagonal[i]) {
-          ifFound++;
+        if (colIndex >= 0) {
+          var rowArray = this.get(rowIndex);
+          ifFound += rowArray[colIndex];
+          console.log(rowArray);
         }
+
       }
-      return ifFound > 1; // fixme
+      return ifFound > 1;
+
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
-      //create board variable
-      var board = this.rows();
-      // loop through board length
-      for (var i = 0; i < board.length; i++) {
-        // checker function on board[0][i]
-        if (this.hasMajorDiagonalConflictAt(board[0][1])) {
-          return true;
-        }
-      }
-      //loop through board column 0
-      for (var i = 0; i < board.length; i++) {
-        //checker function on board[i][0]
-        if (this.hasMajorDiagonalConflictAt(board[i][0])) {
+
+      var size = this.get('n');
+
+
+      for (var i = 1 - size; i < size; i++) {
+        if (this.hasMajorDiagonalConflictAt(i)) {
           return true;
         }
       }
 
-
-      //if either return true, return true;
       return false;
+
     },
 
 
