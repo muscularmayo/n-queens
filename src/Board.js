@@ -147,7 +147,7 @@
 
         //while on each index of array, run function and check column
         //If there is any conflict in a column
-        if (this.hasColConflictAt(board[0][i])) {
+        if (this.hasColConflictAt(i)) {
           return true;
         }
       }
