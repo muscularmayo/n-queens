@@ -173,7 +173,6 @@
         if (colIndex >= 0) {
           var rowArray = this.get(rowIndex);
           ifFound += rowArray[colIndex];
-          console.log(rowArray);
         }
 
       }
