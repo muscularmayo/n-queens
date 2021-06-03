@@ -94,41 +94,29 @@ window.countNRooksSolutions = function(n) {
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n queens placed such that none of them can attack each other
 window.findNQueensSolution = function(n) {
 
-  var solution = []; //fixme
-
   //Initialize board
-  var board = new Board({n: n});
+  var solution = new Board({n: n}); //Solution defaults to an empty board in the first place - esp n is 0, 2, 3
 
-  if (n === 0) {
-    solution = [];
-    return solution;
-  }
-
-  //If there is no board, there should be no solution
-
-  //If n === 1 -> 1 solution
 
   //Create inner helper function that places pieces, sets and counts board. Parameters will be board and row.
   var solveQueens = function(queenBoard, row) {
-
-
     //Example sample data, n = 8.
     //If row is at 8, and there are no conflicts on the board
     if (row === n) {
-      //If n is 0 - > there will be no solution to check
-      console.log('queenBoard', queenBoard);
+      console.log('queenBoard', queenBoard.rows(), row);
+      //Reassign the solution to the queenBoard -- which should be transformed by the helper function
       // solution = queenBoard;
-      solution = queenBoard.rows();
-      return solution;
-
+      //Return solution
+      return queenBoard;
     }
-
 
     //Iterate through the columns starting from first column
     for (var col = 0; col < n; col++) {
 
       //Place piece on the board starting at FIRST column
       queenBoard.togglePiece(row, col);
+
+      // console.log('toggle', queenBoard.rows());
 
       //If there are no conflicts after placing a piece on the column at the current row
       if (!queenBoard.hasAnyQueensConflicts()) {
@@ -138,18 +126,28 @@ window.findNQueensSolution = function(n) {
         //Otherwise if there are conflicts, remove the piece
       }
       queenBoard.togglePiece(row, col);
+      // console.log('untoggle', queenBoard.rows());
+
+      //console.log('solution', solution);
 
     } //End of for loop
-    // return;
 
   }; //End of helper function
 
   //call the helper function
-  solveQueens(board, 0);
+  solveQueens(solution, 0);
+  solution = solution.rows();
   console.log('Single solution for ' + n + ' queens:', JSON.stringify(solution));
 
   return solution;
 };
+
+
+
+
+
+
+
 
 // return the number of nxn chessboards that exist, with n queens placed such that none of them can attack each other
 window.countNQueensSolutions = function(n) {
